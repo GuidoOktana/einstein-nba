@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecommendationStrategy xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contextRecordType>Contact</contextRecordType>
+    <description>Decides whether to offer an upgrade or attempt to retain them</description>
+    <filter>
+        <childNode>Upgrade_Financing</childNode>
+        <description>Is this person eligible for financing?</description>
+        <label>Eligible For Financing</label>
+        <name>Eligible_For_Financing</name>
+        <expression>$Record.Eligible_For_Financing__c = TRUE</expression>
+    </filter>
+    <if>
+        <childNode>Retention_Offer</childNode>
+        <childNode>Likelihood_To_Upgrade</childNode>
+        <description>Only offer upgrades to people whose most recent CSAT was good.</description>
+        <label>Most Recent CSAT</label>
+        <name>Most_Recent_CSAT</name>
+        <childNodeExpression>
+            <childName>Likelihood_To_Upgrade</childName>
+            <expression>$Record.Last_CSAT__c &gt;= 4.25</expression>
+        </childNodeExpression>
+        <childNodeExpression>
+            <childName>Retention_Offer</childName>
+            <expression>$Record.Last_CSAT__c &lt; 4.25</expression>
+        </childNodeExpression>
+        <onlyFirstMatch>false</onlyFirstMatch>
+    </if>
+    <if>
+        <childNode>Upgrade_Discount</childNode>
+        <childNode>Eligible_For_Financing</childNode>
+        <description>Decide which offer to give based on predicted likelihood to upgrade.</description>
+        <label>Likelihood To Upgrade</label>
+        <name>Likelihood_To_Upgrade</name>
+        <childNodeExpression>
+            <childName>Eligible_For_Financing</childName>
+            <expression>$Record.LikelihoodToUpgrade__c &gt;= 50</expression>
+        </childNodeExpression>
+        <childNodeExpression>
+            <childName>Upgrade_Discount</childName>
+            <expression>$Record.LikelihoodToUpgrade__c &lt; 50</expression>
+        </childNodeExpression>
+        <onlyFirstMatch>false</onlyFirstMatch>
+    </if>
+    <label>Upgrade or Retain</label>
+    <recommendationLoad>
+        <description>25% Off Next Service Call</description>
+        <label>Retention Offer</label>
+        <name>Retention_Offer</name>
+        <condition>
+            <field>ActionReference</field>
+            <operator>EQUALS</operator>
+            <value>
+                <type>TEXT</type>
+                <value>Retention_Offer</value>
+            </value>
+        </condition>
+        <conditionLogic>and</conditionLogic>
+    </recommendationLoad>
+    <recommendationLoad>
+        <description>Offer an discount on the upgrade.</description>
+        <label>Upgrade Discount</label>
+        <name>Upgrade_Discount</name>
+        <condition>
+            <field>ActionReference</field>
+            <operator>EQUALS</operator>
+            <value>
+                <type>TEXT</type>
+                <value>Upgrade_Discount</value>
+            </value>
+        </condition>
+        <conditionLogic>and</conditionLogic>
+    </recommendationLoad>
+    <recommendationLoad>
+        <description>0% APR financing on an upgrade</description>
+        <label>Upgrade Financing</label>
+        <name>Upgrade_Financing</name>
+        <condition>
+            <field>ActionReference</field>
+            <operator>EQUALS</operator>
+            <value>
+                <type>TEXT</type>
+                <value>Upgrade_Financing</value>
+            </value>
+        </condition>
+        <conditionLogic>and</conditionLogic>
+    </recommendationLoad>
+    <union>
+        <childNode>Most_Recent_CSAT</childNode>
+        <label>Output</label>
+        <name>Output_3144c670ea5e435c8d58f380de25151d</name>
+    </union>
+</RecommendationStrategy>

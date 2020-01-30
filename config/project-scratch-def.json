@@ -1,0 +1,19 @@
+{
+  "orgName": "Einstein Next Best Action Demo",
+  "description": "nbademo",
+  "edition": "Developer",
+  "features": [],
+  "settings": {
+      "lightningExperienceSettings": {
+          "enableS1DesktopEnabled": true
+      },
+      "mobileSettings": {
+          "enableS1EncryptedStoragePref2": false
+      },
+      "securitySettings": {
+          "passwordPolicies": {
+              "enableSetPasswordInApi": true
+          }
+      }
+  }
+}
