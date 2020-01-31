@@ -17,8 +17,7 @@
     },
     {
         "sobject": "Recommendation",
-        "saveRefs": false,
-        "resolveRefs": true,
+        "saveRefs": true,
         "files": [
             "Recommendation.json"
         ]
