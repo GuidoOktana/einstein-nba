@@ -20,7 +20,7 @@
         "saveRefs": false,
         "resolveRefs": true,
         "files": [
-            "Recomendation.json"
+            "Recommendation.json"
         ]
     }
 ]
