@@ -8,7 +8,6 @@
             "AcceptanceLabel": "Accept",
             "ActionReference": "Retention_Offer",
             "Description": "25% Off Next Service Call",
-            "IsActionActive": true,
             "Name": "25% Off Next Service Call",
             "RejectionLabel": "Reject"
         },
@@ -20,7 +19,6 @@
             "AcceptanceLabel": "Accept",
             "ActionReference": "Upgrade_Discount",
             "Description": "20% Discount On Upgrade",
-            "IsActionActive": true,
             "Name": "20% Discount On Upgrade",
             "RejectionLabel": "Reject"
         },
@@ -32,7 +30,6 @@
             "AcceptanceLabel": "Accept",
             "ActionReference": "Upgrade_Financing",
             "Description": "We can help with financing your boiler upgrade!",
-            "IsActionActive": true,
             "Name": "We can help with financing!",
             "RejectionLabel": "Reject"
         }
